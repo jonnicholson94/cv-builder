@@ -2,41 +2,63 @@
 "use client"
 
 import { useState } from "react"
+import { toast } from "sonner"
 
-import { updateName } from "@/app/actions"
+import { InputTypes } from "@/lib/types/cv"
+import { IApiResponse } from "@/lib/types/api"
+
+import { handleValidation } from "@/lib/handleValidation"
+
 import DashboardLabel from "./DashboardLabel"
+import DashboardInputError from "./DashboardInputError"
 
 type Props = {
     id: string
     value: string 
     type: string 
-    name: string
+    name: InputTypes
     label: string 
     placeholder: string
+    action: (id: string, value: string) => Promise<IApiResponse<string>>
 }
 
-export default function DashboardTextInput({ id, value, type, name, label, placeholder }: Props) {
+export default function DashboardTextInput({ id, value, type, name, label, placeholder, action }: Props) {
 
     const [state, setState] = useState(value)
+    const [inputError, setInputError] = useState("")
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+        setInputError(() => handleValidation(e.target.value, name))
+
         setState(e.target.value)
     }
 
-    const handleBlur = () => {
+    const handleBlur = async () => {
 
         if (value === state) {
             return
         }
 
-        updateName(id, state)
+        if (inputError !== "") {
+            return
+        }
+
+        const { data, error } = await action(id, state)
+
+        if (error) {
+            toast.error(error)
+        } else {
+            toast.success(data)
+        }
+        
     }
 
     return (
         <>
             <DashboardLabel label={label} name={name} />
             <input
-                className="h-[40px] w-full bg-altBg border border-border rounded-sm px-[15px] mt-[5px] text-[14px] text-text placeholder:text-placeholder mb-[20px]"
+                className={`h-[40px] w-full bg-altBg border ${inputError ? "border-error mb-[10px]" : "border-border"} rounded-sm px-[15px] mt-[5px] text-[14px] text-text placeholder:text-placeholder mb-[20px] focus:border-active focus:outline-none`}
                 type={type}
                 id={name}
                 name={name}
@@ -45,6 +67,7 @@ export default function DashboardTextInput({ id, value, type, name, label, place
                 onChange={(e) => handleChange(e)}
                 onBlur={handleBlur}
             />
+            { inputError && <DashboardInputError error={inputError} />}
         </>
     )
 }

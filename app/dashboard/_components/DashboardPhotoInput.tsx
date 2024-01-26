@@ -6,6 +6,7 @@ import { useState } from "react"
 import DashboardLabel from "./DashboardLabel"
 import { IProfilePicture } from "@/lib/types/cv"
 import { updateProfilePicture } from "@/app/actions"
+import { toast } from "sonner"
 
 type Props = {
     id: string
@@ -24,12 +25,18 @@ export default function DashboardPhotoInput({ id, label, name, picture }: Props)
         if (selectedFile) {
             const reader = new FileReader()
 
-            reader.onloadend = () => {
+            reader.onloadend = async () => {
                 const base64 = reader.result 
                 const name = selectedFile.name 
 
                 setState({ title: name, base64: base64 as string })
-                updateProfilePicture(id, JSON.stringify({ title: name, base64: base64 as string }))
+                const { data, error } = await updateProfilePicture(id, JSON.stringify({ title: name, base64: base64 as string }))
+
+                if (data) {
+                    toast.success(data)
+                } else {
+                    toast.error(error)
+                }
             }
 
             reader.readAsDataURL(selectedFile)

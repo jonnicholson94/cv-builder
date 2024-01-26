@@ -19,7 +19,7 @@ const config: Config = {
         "success": "#BFD8AF",
         "border": "#444",
         "active": "#83C0C1",
-        "hover": "#111"
+        "hover": "#111",
       },
       screens: {
         'xs': "300px",
