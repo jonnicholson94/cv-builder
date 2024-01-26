@@ -17,8 +17,9 @@ const config: Config = {
         "ctaText": "#000",
         "error": "#FF6464",
         "success": "#BFD8AF",
-        "border": "#151621",
-        "active": "#83C0C1"
+        "border": "#444",
+        "active": "#83C0C1",
+        "hover": "#111"
       },
       screens: {
         'xs': "300px",

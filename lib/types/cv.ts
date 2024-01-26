@@ -3,7 +3,7 @@ export interface ICv {
     id: string 
     user_id: string 
     name: string 
-    profile_picture: string 
+    profile_picture: string | null
     phone_number: string 
     email_address: string 
     twitter: string 
@@ -14,6 +14,11 @@ export interface ICv {
     side_projects: string | null
     about: string 
     skills: string[]
+}
+
+export interface IProfilePicture {
+    title: string 
+    base64: string
 }
 
 export interface IJob {
