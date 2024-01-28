@@ -1,2 +1,9 @@
 
-export default function Page() {}
+import { cache } from "react"
+import { fetchCv } from "@/app/actions"
+
+export default async function Page() {
+    const cachedFetch = cache(fetchCv)
+
+    const { data, error } = await cachedFetch()
+}

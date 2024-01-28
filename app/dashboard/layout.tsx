@@ -1,5 +1,7 @@
 import Sidebar from "./_components/Sidebar";
 
+export const revalidate = 600
+
 export default function Layout({ children }: { children: React.ReactNode }) {
 
     return (

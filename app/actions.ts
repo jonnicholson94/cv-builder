@@ -6,7 +6,7 @@ import { redirect } from "next/navigation"
 
 import { createClient } from "@/lib/supabase/actions"
 import { IApiResponse } from "@/lib/types/api"
-import { IEducation, IJob } from "@/lib/types/cv"
+import { ICv, IEducation, IJob } from "@/lib/types/cv"
 import { revalidatePath } from "next/cache"
 
 const cookieStore = cookies()
@@ -42,6 +42,22 @@ export async function signIn(formData: FormData): Promise<string> {
 
     redirect("/dashboard/details")
 
+}
+
+export async function fetchCv(): Promise<IApiResponse<ICv>> {
+    const { data, error } = await supabase.from("cv").select("*")
+
+    if (error) {
+        return {
+            data: null,
+            error: error.message
+        }
+    }
+
+    return {
+        data: data[0],
+        error: null
+    }
 }
 
 export async function updateName(id: string, value: string): Promise<IApiResponse<string>> {

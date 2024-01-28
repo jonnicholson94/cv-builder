@@ -1,10 +1,7 @@
 
-import { Suspense } from "react";
-import { cookies } from "next/headers";
+import { Suspense, cache } from "react";
 
-import { createClient } from "@/lib/supabase/server";
-
-import { updateName } from "@/app/actions";
+import { fetchCv, updateName } from "@/app/actions";
 
 import { ICv } from "@/lib/types/cv";
 
@@ -15,18 +12,15 @@ import Loading from "./loading";
 
 export default async function Page() {
 
-    const cookieStore = cookies()
-    const supabase = createClient(cookieStore)
+    const cachedFetch = cache(fetchCv)
 
-    const { data, error } = await supabase.from("cv").select("*")
-
-    const cvData: ICv = data![0]
+    const { data, error } = await cachedFetch()
 
     return (
         <Suspense fallback={ <Loading /> }>
             <DashboardHeader title="Your details" content="Tell employers a little more about who you are" />
-            <DashboardTextInput id={cvData.id} value={cvData.name} type="text" name="name" label="Your name" placeholder="Enter your name" action={updateName} />
-            <DashboardPhotoInput id={cvData.id} name="profile-picture" label="Your picture" picture={cvData.profile_picture} />
+            <DashboardTextInput id={data!.id} value={data!.name} type="text" name="name" label="Your name" placeholder="Enter your name" action={updateName} />
+            <DashboardPhotoInput id={data!.id} name="profile-picture" label="Your picture" picture={data!.profile_picture} />
         </Suspense>
     )
 
