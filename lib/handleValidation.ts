@@ -27,6 +27,12 @@ export const handleValidation = (input: string, type: InputTypes): string => {
         if (!linkedInRegex.test(input)) {
             return "Please enter a valid LinkedIn profile link"
         }
+    } else if (type === "github") {
+       
+    } else if (type === "text") {
+        if (input === "") {
+            return "Enter at least one character"
+        }
     }
 
     return ""

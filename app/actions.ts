@@ -6,13 +6,14 @@ import { redirect } from "next/navigation"
 
 import { createClient } from "@/lib/supabase/actions"
 import { IApiResponse } from "@/lib/types/api"
+import { IEducation, IJob } from "@/lib/types/cv"
+import { revalidatePath } from "next/cache"
 
 const cookieStore = cookies()
 const supabase = createClient(cookieStore)
 
 export async function register(formData: FormData): Promise<string> {
     
-
     const email = formData.get("email") as string 
     const password = formData.get("password") as string
 
@@ -160,6 +161,42 @@ export async function updateGithub(id: string, value: string): Promise<IApiRespo
 
     return {
         data: "Successfully updated your Github handle",
+        error: null
+    }
+}
+
+export async function saveJobs(id: string, value: IJob[]): Promise<IApiResponse<string>> {
+    const { data, error } = await supabase.from("cv").update({ "jobs": JSON.stringify(value) }).eq("id", id)
+
+    if (error) {
+        return {
+            data: null,
+            error: error.message
+        }
+    }
+
+    revalidatePath("/")
+
+    return {
+        data: "Successfully updated your jobs",
+        error: null
+    }
+}
+
+export async function saveEducation(id: string, value: IEducation[]): Promise<IApiResponse<string>> {
+    const { data, error } = await supabase.from("cv").update({ "education": JSON.stringify(value) }).eq("id", id)
+
+    if (error) {
+        return {
+            data: null,
+            error: error.message
+        }
+    }
+
+    revalidatePath("/")
+
+    return {
+        data: "Successfully updated your education",
         error: null
     }
 }

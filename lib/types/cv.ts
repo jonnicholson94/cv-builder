@@ -55,4 +55,4 @@ export interface ISideProject {
     skills: string[]
 }
 
-export type InputTypes = "name" | "phone" | "email" | "twitter" | "linkedin" | "github"
+export type InputTypes = "name" | "phone" | "email" | "twitter" | "linkedin" | "github" | "text"
