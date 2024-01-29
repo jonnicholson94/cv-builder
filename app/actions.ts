@@ -6,13 +6,13 @@ import { redirect } from "next/navigation"
 
 import { createClient } from "@/lib/supabase/actions"
 import { IApiResponse } from "@/lib/types/api"
-import { ICv, IEducation, IJob } from "@/lib/types/cv"
+import { ICv, IEducation, IJob, ISideProject } from "@/lib/types/cv"
 import { revalidatePath } from "next/cache"
 
-const cookieStore = cookies()
-const supabase = createClient(cookieStore)
-
 export async function register(formData: FormData): Promise<string> {
+
+    const cookieStore = cookies()
+const supabase = createClient(cookieStore)
     
     const email = formData.get("email") as string 
     const password = formData.get("password") as string
@@ -30,6 +30,9 @@ export async function register(formData: FormData): Promise<string> {
 
 export async function signIn(formData: FormData): Promise<string> {
 
+    const cookieStore = cookies()
+    const supabase = createClient(cookieStore)
+
     const email = formData.get("email") as string 
     const password = formData.get("password") as string
 
@@ -44,23 +47,10 @@ export async function signIn(formData: FormData): Promise<string> {
 
 }
 
-export async function fetchCv(): Promise<IApiResponse<ICv>> {
-    const { data, error } = await supabase.from("cv").select("*")
-
-    if (error) {
-        return {
-            data: null,
-            error: error.message
-        }
-    }
-
-    return {
-        data: data[0],
-        error: null
-    }
-}
-
 export async function updateName(id: string, value: string): Promise<IApiResponse<string>> {
+
+    const cookieStore = cookies()
+    const supabase = createClient(cookieStore)
 
     const { data, error } = await supabase.from("cv").update({ "name": value }).eq("id", id)
 
@@ -80,6 +70,9 @@ export async function updateName(id: string, value: string): Promise<IApiRespons
 
 export async function updateProfilePicture(id: string, picture: string): Promise<IApiResponse<string>> {
 
+    const cookieStore = cookies()
+    const supabase = createClient(cookieStore)
+
     const { data, error } = await supabase.from("cv").update({ "profile_picture": picture }).eq("id", id)
 
     if (error) {
@@ -98,6 +91,9 @@ export async function updateProfilePicture(id: string, picture: string): Promise
 
 export async function updateEmail(id: string, value: string): Promise<IApiResponse<string>> {
 
+    const cookieStore = cookies()
+    const supabase = createClient(cookieStore)
+
     const { data, error } = await supabase.from("cv").update({ "email": value }).eq("id", id)
 
     if (error) {
@@ -114,6 +110,9 @@ export async function updateEmail(id: string, value: string): Promise<IApiRespon
 }
 
 export async function updatePhone(id: string, value: string): Promise<IApiResponse<string>> {
+
+    const cookieStore = cookies()
+    const supabase = createClient(cookieStore)
 
     const { data, error } = await supabase.from("cv").update({ "phone_number": value }).eq("id", id)
 
@@ -132,9 +131,11 @@ export async function updatePhone(id: string, value: string): Promise<IApiRespon
 }
 
 export async function updateTwitter(id: string, value: string): Promise<IApiResponse<string>> {
-    const { data, error } = await supabase.from("cv").update({ "twitter": value }).eq("id", id)
 
-    
+    const cookieStore = cookies()
+    const supabase = createClient(cookieStore)
+
+    const { data, error } = await supabase.from("cv").update({ "twitter": value }).eq("id", id)
 
     if (error) {
         return {
@@ -150,6 +151,10 @@ export async function updateTwitter(id: string, value: string): Promise<IApiResp
 }
 
 export async function updateLinkedIn(id: string, value: string): Promise<IApiResponse<string>> {
+
+    const cookieStore = cookies()
+    const supabase = createClient(cookieStore)
+
     const { data, error } = await supabase.from("cv").update({ "linkedIn": value }).eq("id", id)
 
     if (error) {
@@ -166,6 +171,10 @@ export async function updateLinkedIn(id: string, value: string): Promise<IApiRes
 }
 
 export async function updateGithub(id: string, value: string): Promise<IApiResponse<string>> {
+
+    const cookieStore = cookies()
+    const supabase = createClient(cookieStore)
+
     const { data, error } = await supabase.from("cv").update({ "github": value }).eq("id", id)
 
     if (error) {
@@ -182,6 +191,10 @@ export async function updateGithub(id: string, value: string): Promise<IApiRespo
 }
 
 export async function saveJobs(id: string, value: IJob[]): Promise<IApiResponse<string>> {
+
+    const cookieStore = cookies()
+    const supabase = createClient(cookieStore)
+
     const { data, error } = await supabase.from("cv").update({ "jobs": JSON.stringify(value) }).eq("id", id)
 
     if (error) {
@@ -200,6 +213,10 @@ export async function saveJobs(id: string, value: IJob[]): Promise<IApiResponse<
 }
 
 export async function saveEducation(id: string, value: IEducation[]): Promise<IApiResponse<string>> {
+
+    const cookieStore = cookies()
+    const supabase = createClient(cookieStore)
+
     const { data, error } = await supabase.from("cv").update({ "education": JSON.stringify(value) }).eq("id", id)
 
     if (error) {
@@ -213,6 +230,48 @@ export async function saveEducation(id: string, value: IEducation[]): Promise<IA
 
     return {
         data: "Successfully updated your education",
+        error: null
+    }
+}
+
+export async function saveProjects(id: string, value: ISideProject[]): Promise<IApiResponse<string>> {
+
+    const cookieStore = cookies()
+    const supabase = createClient(cookieStore)
+
+    const { data, error } = await supabase.from("cv").update({ "side_projects": JSON.stringify(value) }).eq("id", id)
+
+    if (error) {
+        return {
+            data: null,
+            error: error.message
+        }
+    }
+
+    revalidatePath("/")
+
+    return {
+        data: "Successfully updated your projects",
+        error: null
+    }
+}
+
+export async function updateAbout(id: string, value: string): Promise<IApiResponse<string>> {
+
+    const cookieStore = cookies()
+    const supabase = createClient(cookieStore)
+
+    const { data, error } = await supabase.from("cv").update({ "about": value }).eq("id", id)
+
+    if (error) {
+        return {
+            data: null,
+            error: error.message
+        }
+    }
+
+    return {
+        data: "Successfully updated your about profile",
         error: null
     }
 }

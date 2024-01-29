@@ -51,8 +51,10 @@ export interface ISideProject {
     name: string 
     description: string 
     link: string 
-    screenshot: string 
+    screenshot: IProfilePicture | null 
     skills: string[]
+    start_date: string 
+    end_date: string
 }
 
 export type InputTypes = "name" | "phone" | "email" | "twitter" | "linkedin" | "github" | "text"

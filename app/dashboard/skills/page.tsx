@@ -1,10 +1,12 @@
 
-import { cache } from "react"
-import { fetchCv } from "@/app/actions"
+import { cookies } from "next/headers"
+
+import { createClient } from "@/lib/supabase/server"
 
 export default async function Page() {
 
-    const cachedFetch = cache(fetchCv)
+    const cookieStore = cookies()
+    const supabase = createClient(cookieStore)
 
-    const { data: cv, error } = await cachedFetch()
+    const { data, error } = await supabase.from("cv").select("*")
 }

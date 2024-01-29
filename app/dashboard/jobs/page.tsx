@@ -1,9 +1,12 @@
 
 import { Suspense, cache } from "react"
+import { cookies } from "next/headers"
+
+import { createClient } from "@/lib/supabase/server"
 
 import type { IJob } from "@/lib/types/cv"
 
-import { fetchCv, saveJobs } from "@/app/actions"
+import { saveJobs } from "@/app/actions"
 
 import DashboardHeader from "../_components/DashboardHeader"
 import DashboardTableHeader from "../_components/DashboardTableHeader"
@@ -14,15 +17,16 @@ import DashboardTableItem from "../_components/DashboardTableItem"
 
 export default async function Page() {
 
-    const cachedFetch = cache(fetchCv)
+    const cookieStore = cookies()
+    const supabase = createClient(cookieStore)
 
-    const { data, error } = await cachedFetch()
+    const { data, error } = await supabase.from("cv").select("*")
 
     const addJob = async (newJob: IJob) => {
 
         "use server"
 
-        let jobs = JSON.parse(data!.jobs!)
+        let jobs = JSON.parse(data![0].jobs!)
 
         if (jobs === null) {
             jobs = [newJob] 
@@ -30,20 +34,20 @@ export default async function Page() {
             jobs.push(newJob)
         }
 
-        await saveJobs(data!.id, jobs)
+        await saveJobs(data![0].id, jobs)
 
     }
 
     const updateJobs = async (newJob: IJob) => {
         "use server"
 
-        let jobs: IJob[] = JSON.parse(data!.jobs!)
+        let jobs: IJob[] = JSON.parse(data![0].jobs!)
 
         let foundJob = jobs.findIndex(j => j.id === newJob.id)
 
         jobs[foundJob] = { ...newJob }
 
-        await saveJobs(data!.id, jobs)
+        await saveJobs(data![0].id, jobs)
 
     }
 
@@ -51,11 +55,11 @@ export default async function Page() {
         <>  
             <Suspense fallback={<Loading />}>
                 <DashboardHeader title="Your job history" content="Tell employers about your job history" />
-                { data?.jobs === null ? <p className="h-auto w-full text-[14px] text-altText">No jobs added</p> :
+                { data![0].jobs === null ? <p className="h-auto w-full text-[14px] text-altText">No jobs added</p> :
                 <>
                     <DashboardTableHeader firstOption="Job title" secondOption="Employer" thirdOption="Start date" fourthOption="End date" />
                     <div className="h-auto w-full flex items-center justify-center flex-col">
-                        { JSON.parse(data!.jobs!).map((j: IJob) => {
+                        { JSON.parse(data![0].jobs!).map((j: IJob) => {
                             return <DashboardTableItem key={j.id} firstValue={j.job_title} secondValue={j.employer} thirdValue={j.start_date} fourthValue={j.end_date} form={<DashboardJobForm id={j.id} job_title={j.job_title} employer={j.employer} job_details={j.description} start_date={j.start_date} end_date={j.end_date} action={updateJobs} />} />
                         })}
                     </div>
