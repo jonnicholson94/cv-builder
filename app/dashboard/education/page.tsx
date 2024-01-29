@@ -62,7 +62,7 @@ export default async function Page() {
                     <DashboardTableHeader firstOption="Job title" secondOption="Employer" thirdOption="Start date" fourthOption="End date" />
                     <div className="h-auto w-full flex items-center justify-center flex-col">
                         { JSON.parse(data![0].education!).map((e: IEducation) => {
-                            return <DashboardTableItem key={e.id} firstValue={e.course} secondValue={e.institution} thirdValue={e.start_date} fourthValue={e.end_date} form={<DashboardEducationForm id={e.id} institution={e.institution} course={e.course} grade={e.grade} start_date={e.start_date} end_date={e.end_date} action={updateEducation} />} />
+                            return <DashboardTableItem key={e.id} title="View your education" description="Make any changes you need to your saved education" firstValue={e.course} secondValue={e.institution} thirdValue={e.start_date} fourthValue={e.end_date} form={<DashboardEducationForm id={e.id} institution={e.institution} course={e.course} grade={e.grade} start_date={e.start_date} end_date={e.end_date} action={updateEducation} />} />
                         })}
                     </div>
                 </> }

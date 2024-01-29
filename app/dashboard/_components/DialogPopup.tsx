@@ -19,7 +19,7 @@ export default function DialogPopup({ children, title, description, form }: Prop
         </Dialog.Trigger>
         <Dialog.Portal>
             <Dialog.Overlay className="h-screen w-screen bg-primaryBg fixed top-0 left-0 opacity-80" />
-            <Dialog.Content className="h-auto w-[40%] bg-altBg border border-border rounded-md fixed top-[30%] left-[30%] p-[30px]">
+            <Dialog.Content className="h-auto xs:w-[95%] lg:w-[40%] bg-altBg border border-border rounded-md fixed xs:top-[5%] lg:top-[30%] xs:left-[2.5%] lg:left-[30%] p-[30px]">
                 <Dialog.Close className="absolute top-[15px] right-[15px]">
                     <img className="h-[18px] w-[18px]" src="/assets/close.svg" alt="A cross icon to indicate the dialog can be closed" />
                 </Dialog.Close>

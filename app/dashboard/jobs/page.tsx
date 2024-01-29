@@ -60,7 +60,7 @@ export default async function Page() {
                     <DashboardTableHeader firstOption="Job title" secondOption="Employer" thirdOption="Start date" fourthOption="End date" />
                     <div className="h-auto w-full flex items-center justify-center flex-col">
                         { JSON.parse(data![0].jobs!).map((j: IJob) => {
-                            return <DashboardTableItem key={j.id} firstValue={j.job_title} secondValue={j.employer} thirdValue={j.start_date} fourthValue={j.end_date} form={<DashboardJobForm id={j.id} job_title={j.job_title} employer={j.employer} job_details={j.description} start_date={j.start_date} end_date={j.end_date} action={updateJobs} />} />
+                            return <DashboardTableItem key={j.id} title="View your job" description="Make any changes you need to your saved job" firstValue={j.job_title} secondValue={j.employer} thirdValue={j.start_date} fourthValue={j.end_date} form={<DashboardJobForm id={j.id} job_title={j.job_title} employer={j.employer} job_details={j.description} start_date={j.start_date} end_date={j.end_date} action={updateJobs} />} />
                         })}
                     </div>
                 </> }

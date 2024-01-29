@@ -1,19 +1,19 @@
 
+"use client"
+
 import Link from "next/link";
-import { headers } from "next/headers";
+import { usePathname } from "next/navigation";
 
 import { navLinks } from "@/lib/navLinks";
 
 export default function Sidebar() {
 
-    const head = headers()
+    const path = usePathname()
 
     // TODO: Review getting the headers, as seems unreliable
 
-    const currentLink = head.get("next-url")
-
     return (
-        <div className="min-h-screen w-[300px] border-r border-border flex items-center justify-start flex-col p-[20px]">
+        <div className="min-h-screen w-[300px] xs:hidden lg:flex border-r border-border items-center justify-start flex-col p-[20px]">
             <div className="h-auto w-full flex items-center justify-start">
                 <Link href="/">
                     <img className="h-[20px] w-[20px]" src="/square-logo-white.svg" alt="The primary icon, used to navigate home" />
@@ -29,9 +29,9 @@ export default function Sidebar() {
             <nav className="h-auto w-full flex items-center justify-center flex-col mt-[30px]">
                 { navLinks.map(link => {
                     return (
-                        <Link key={link.link} href={link.link} className={`h-[35px] w-full ${currentLink === link.link && "bg-altBg font-bold text-text"} flex items-center justify-start hover:bg-hover rounded-md px-[10px]`}>
+                        <Link key={link.link} href={link.link} className={`h-[35px] w-full ${path === link.link && "bg-altBg font-bold text-text"} flex items-center justify-start hover:bg-hover rounded-md px-[10px]`}>
                             <img className="h-[20px] w-[20px] mr-[10px]" src={link.icon} alt={`The respective icon for the nav link: ${link.content}`} />
-                            <p className={`text-[14px] ${currentLink === link.link ? "text-text" : "text-altText"}`}>{link.content}</p>
+                            <p className={`text-[14px] ${path === link.link ? "text-text" : "text-altText"}`}>{link.content}</p>
                         </Link>
                     )
                 })}

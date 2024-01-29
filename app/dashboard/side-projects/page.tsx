@@ -60,7 +60,7 @@ export default async function Page() {
                     <DashboardTableHeader firstOption="Name" secondOption="Link" thirdOption="Start date" fourthOption="End date" />
                     <div className="h-auto w-full flex items-center justify-center flex-col">
                         { JSON.parse(data![0].side_projects!).map((p: ISideProject) => {
-                            return <DashboardTableItem key={p.id} firstValue={p.name} secondValue={p.link} thirdValue={p.start_date} fourthValue={p.end_date} form={<DashboardProjectForm name={p.name} link={p.link} skills={p.skills} description={p.description} screenshot={p.screenshot} start_date={p.start_date} end_date={p.end_date} action={updateProjects} />} />
+                            return <DashboardTableItem key={p.id} title="View your project" description="Make changes to your saved project" firstValue={p.name} secondValue={p.link} thirdValue={p.start_date} fourthValue={p.end_date} form={<DashboardProjectForm name={p.name} link={p.link} skills={p.skills} description={p.description} screenshot={p.screenshot} start_date={p.start_date} end_date={p.end_date} action={updateProjects} />} />
                         })}
                     </div>
                 </> }
