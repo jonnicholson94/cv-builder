@@ -6,7 +6,7 @@ import { redirect } from "next/navigation"
 
 import { createClient } from "@/lib/supabase/actions"
 import { IApiResponse } from "@/lib/types/api"
-import { ICv, IEducation, IJob, ISideProject } from "@/lib/types/cv"
+import { ICv, IEducation, IJob, ISideProject, ISkill } from "@/lib/types/cv"
 import { revalidatePath } from "next/cache"
 
 export async function register(formData: FormData): Promise<string> {
@@ -274,4 +274,25 @@ export async function updateAbout(id: string, value: string): Promise<IApiRespon
         data: "Successfully updated your about profile",
         error: null
     }
+}
+
+export async function updateSkills(id: string, value: ISkill[]): Promise<IApiResponse<string>> {
+
+    const cookieStore = cookies()
+    const supabase = createClient(cookieStore)
+
+    const { data, error } = await supabase.from("cv").update({ "skills": JSON.stringify(value) }).eq("id", id)
+    
+    if (error) {
+        return {
+            data: null,
+            error: error.message
+        }
+    }
+
+    return {
+        data: "Successfully updated your skills",
+        error: null
+    }
+
 }
