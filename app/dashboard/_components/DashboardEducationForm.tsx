@@ -11,6 +11,7 @@ import DashboardFormInput from "./DashboardFormInput"
 import DashboardFormTextarea from "./DashboardFormTextarea"
 import DashboardFormDatePicker from "./DashboardFormDatePicker"
 import DashboardFormButton from "./DashboardFormButton"
+import { useRouter } from "next/navigation"
 
 type Props = {
     id?: string
@@ -19,10 +20,13 @@ type Props = {
     grade: string
     start_date: string 
     end_date: string
-    action: (job: IEducation) => void
+    deleteAction?: (education_id: string) => void
+    saveAction: (job: IEducation) => void
 }
 
-export default function DashboardEducationForm({ id = "", institution, course, grade, start_date, end_date, action }: Props) {
+export default function DashboardEducationForm({ id = "", institution, course, grade, start_date, end_date, deleteAction, saveAction }: Props) {
+
+    const router = useRouter()
 
     const [newInstitution, setNewInstitution] = useState(institution)
     const [newCourse, setNewCourse] = useState(course)
@@ -41,9 +45,15 @@ export default function DashboardEducationForm({ id = "", institution, course, g
             end_date: endDate
         }
 
-        action(newEducation)
+        saveAction(newEducation)
         toast.success("Successfully updated your education")
 
+    }
+
+    const handleDelete = () => {
+        deleteAction!(id)
+        router.refresh()
+        toast.success("Successfully removed your education")
     }
 
     return (
@@ -53,7 +63,7 @@ export default function DashboardEducationForm({ id = "", institution, course, g
             <DashboardFormInput label="Description" type="text" state={newGrade} setState={setNewGrade} placeholder="Enter a grade" />
             <DashboardFormDatePicker label="Start date" date={startDate} setDate={setStartDate} />
             <DashboardFormDatePicker label="End date" date={endDate} setDate={setEndDate} end={true} />
-            <DashboardFormButton action={handleSubmit} />
+            <DashboardFormButton showDelete={true} deleteAction={handleDelete} saveAction={handleSubmit} />
         </div>
     )
 }

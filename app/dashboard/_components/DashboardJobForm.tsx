@@ -11,6 +11,7 @@ import DashboardFormInput from "./DashboardFormInput"
 import DashboardFormTextarea from "./DashboardFormTextarea"
 import DashboardFormDatePicker from "./DashboardFormDatePicker"
 import DashboardFormButton from "./DashboardFormButton"
+import { useRouter } from "next/navigation"
 
 type Props = {
     id?: string
@@ -19,10 +20,13 @@ type Props = {
     job_details: string 
     start_date: string 
     end_date: string 
-    action: (job: IJob) => void
+    deleteAction?: (job_id: string) => void
+    saveAction: (job: IJob) => void
 }
 
-export default function DashboardJobForm({ id = "", job_title, employer, job_details, start_date, end_date, action }: Props) {
+export default function DashboardJobForm({ id = "", job_title, employer, job_details, start_date, end_date, deleteAction, saveAction }: Props) {
+
+    const router = useRouter()
 
     const [jobTitle, setJobTitle] = useState(job_title)
     const [jobEmployer, setJobEmployer] = useState(employer)
@@ -41,9 +45,15 @@ export default function DashboardJobForm({ id = "", job_title, employer, job_det
             end_date: endDate
         }
 
-        action(newJob)
+        saveAction(newJob)
         toast.success("Successfully updated your job history")
 
+    }
+
+    const handleDelete = () => {
+        deleteAction!(id)
+        router.refresh()
+        toast.success("Successfully removed your job")
     }
 
     return (
@@ -53,7 +63,7 @@ export default function DashboardJobForm({ id = "", job_title, employer, job_det
             <DashboardFormTextarea label="Description" type="text" state={jobDetails} setState={setJobDetails} placeholder="Enter a job description" />
             <DashboardFormDatePicker label="Start date" date={startDate} setDate={setStartDate} />
             <DashboardFormDatePicker label="End date" date={endDate} setDate={setEndDate} end={true} />
-            <DashboardFormButton action={handleSubmit} />
+            <DashboardFormButton showDelete={true} deleteAction={handleDelete} saveAction={handleSubmit} />
         </div>
     )
 }

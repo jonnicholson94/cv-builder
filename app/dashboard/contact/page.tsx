@@ -12,8 +12,7 @@ import DashboardTextInput from "../_components/DashboardTextInput";
 
 import Loading from "./loading";
 import DashboardPhoneInput from "../_components/DashboardPhoneInput";
-
-export const revalidate = 300
+import EmptyDashboard from "../_components/EmptyDashboard";
 
 export default async function Page() {
 
@@ -21,6 +20,12 @@ export default async function Page() {
     const supabase = createClient(cookieStore)
 
     const { data, error } = await supabase.from("cv").select("*")
+
+    if (data?.length === 0) {
+        return (
+            <EmptyDashboard />
+        )
+    }
 
     return (
         <Suspense fallback={ <Loading /> }>

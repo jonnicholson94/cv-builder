@@ -10,8 +10,7 @@ import DashboardHeader from "../_components/DashboardHeader";
 
 import Loading from "./loading";
 import DashboardTextarea from "../_components/DashboardTextarea";
-
-export const revalidate = 300
+import EmptyDashboard from "../_components/EmptyDashboard";
 
 export default async function Page() {
 
@@ -19,6 +18,12 @@ export default async function Page() {
     const supabase = createClient(cookieStore)
 
     const { data, error } = await supabase.from("cv").select("*")
+
+    if (data?.length === 0) {
+        return (
+            <EmptyDashboard />
+        )
+    }
 
     return (
         <Suspense fallback={ <Loading /> }>

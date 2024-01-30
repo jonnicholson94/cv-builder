@@ -12,6 +12,7 @@ import DashboardFormTextarea from "./DashboardFormTextarea"
 import DashboardFormDatePicker from "./DashboardFormDatePicker"
 import DashboardFormButton from "./DashboardFormButton"
 import DashboardFormPhotoInput from "./DashboardFormPhotoInput"
+import { useRouter } from "next/navigation"
 
 type Props = {
     id?: string
@@ -22,10 +23,13 @@ type Props = {
     screenshot: IProfilePicture | null
     start_date: string 
     end_date: string 
-    action: (project: ISideProject) => void
+    deleteAction?: (id: string) => void
+    saveAction: (project: ISideProject) => void
 }
 
-export default function DashboardProjectForm({ id = "", name, link, skills, description, screenshot, start_date, end_date, action }: Props) {
+export default function DashboardProjectForm({ id = "", name, link, skills, description, screenshot, start_date, end_date, deleteAction, saveAction }: Props) {
+
+    const router = useRouter()
 
     const [newName, setNewName] = useState(name)
     const [newLink, setNewLink] = useState(link)
@@ -37,7 +41,7 @@ export default function DashboardProjectForm({ id = "", name, link, skills, desc
 
     const handleSubmit = () => {
         const newProject: ISideProject = {
-            id: id,
+            id: uuid(),
             name: newName, 
             link: newLink,
             skills: newSkills,
@@ -47,9 +51,15 @@ export default function DashboardProjectForm({ id = "", name, link, skills, desc
             end_date: endDate
         }
 
-        action(newProject)
+        saveAction(newProject)
         toast.success("Successfully updated your side projects")
 
+    }
+
+    const handleDelete = () => {
+        deleteAction!(id)
+        router.refresh()
+        toast.success("Successfully removed your project")
     }
 
     return (
@@ -60,7 +70,7 @@ export default function DashboardProjectForm({ id = "", name, link, skills, desc
             <DashboardFormPhotoInput label="Screenshot" state={newScreenshot} setState={setNewScreenshot} />
             <DashboardFormDatePicker label="Start date" date={startDate} setDate={setStartDate} />
             <DashboardFormDatePicker label="End date" date={endDate} setDate={setEndDate} end={true} />
-            <DashboardFormButton action={handleSubmit} />
+            <DashboardFormButton showDelete={true} deleteAction={handleDelete} saveAction={handleSubmit} />
         </div>
     )
 }

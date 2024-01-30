@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server"
 
 import DashboardHeader from "../_components/DashboardHeader"
 import DashboardSkillsList from "../_components/DashboardSkillsList"
+import EmptyDashboard from "../_components/EmptyDashboard"
 
 export default async function Page() {
 
@@ -12,6 +13,12 @@ export default async function Page() {
     const supabase = createClient(cookieStore)
 
     const { data, error } = await supabase.from("cv").select("*")
+
+    if (data?.length === 0) {
+        return (
+            <EmptyDashboard />
+        )
+    }
 
     return (
         <>
