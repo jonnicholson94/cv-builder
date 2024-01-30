@@ -20,11 +20,12 @@ type Props = {
     grade: string
     start_date: string 
     end_date: string
+    showDelete: boolean
     deleteAction?: (education_id: string) => void
     saveAction: (job: IEducation) => void
 }
 
-export default function DashboardEducationForm({ id = "", institution, course, grade, start_date, end_date, deleteAction, saveAction }: Props) {
+export default function DashboardEducationForm({ id = "", institution, course, grade, showDelete, start_date, end_date, deleteAction, saveAction }: Props) {
 
     const router = useRouter()
 
@@ -63,7 +64,7 @@ export default function DashboardEducationForm({ id = "", institution, course, g
             <DashboardFormInput label="Description" type="text" state={newGrade} setState={setNewGrade} placeholder="Enter a grade" />
             <DashboardFormDatePicker label="Start date" date={startDate} setDate={setStartDate} />
             <DashboardFormDatePicker label="End date" date={endDate} setDate={setEndDate} end={true} />
-            <DashboardFormButton showDelete={true} deleteAction={handleDelete} saveAction={handleSubmit} />
+            <DashboardFormButton showDelete={showDelete} deleteAction={handleDelete} saveAction={handleSubmit} />
         </div>
     )
 }

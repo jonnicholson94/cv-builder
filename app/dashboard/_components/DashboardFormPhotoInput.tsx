@@ -41,7 +41,7 @@ export default function DashboardFormPhotoInput({ label, state, setState }: Prop
                 </div>
                 <p className="h-auto flex-grow text-[12px] text-altText">{state?.title ? state.title : "No screenshot uploaded"}</p>
                 <label className="h-[35px] px-[15px] border border-border rounded-sm text-[12px] font-bold flex items-center justify-center text-text" htmlFor="screenshot">Upload</label>
-                <input className="hidden" id="screenshot" type="file" accept="png/*, jpg/*" onChange={handleUpload} />
+                <input className="hidden" id="screenshot" type="file" accept="image/png, image/jpg" onChange={handleUpload} />
             </div>
         </div>
         </>

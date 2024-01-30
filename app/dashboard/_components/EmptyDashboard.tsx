@@ -26,7 +26,7 @@ export default function EmptyDashboard() {
     }
 
     return (
-        <div className="h-screen w-full flex items-start justify-center flex-col">
+        <div className="h-auto w-full flex items-start justify-center flex-col">
             <img className="h-[50px] w-[50px]" src="/assets/rocket.svg" alt="A rocket icon to encourage the user to create a CV" />
             <h2 className="w-full text-[24px] text-text font-bold mt-[20px]">Get started building your CV</h2>
             <p className="w-full text-left text-[16px] text-altText mt-[10px] mb-[30px]">You don&apos;t currently have a CV saved. Get started with building one now.</p>

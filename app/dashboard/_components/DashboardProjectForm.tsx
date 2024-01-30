@@ -23,11 +23,12 @@ type Props = {
     screenshot: IProfilePicture | null
     start_date: string 
     end_date: string 
+    showDelete: boolean
     deleteAction?: (id: string) => void
     saveAction: (project: ISideProject) => void
 }
 
-export default function DashboardProjectForm({ id = "", name, link, skills, description, screenshot, start_date, end_date, deleteAction, saveAction }: Props) {
+export default function DashboardProjectForm({ id = "", name, link, skills, description, screenshot, start_date, end_date, showDelete, deleteAction, saveAction }: Props) {
 
     const router = useRouter()
 
@@ -70,7 +71,7 @@ export default function DashboardProjectForm({ id = "", name, link, skills, desc
             <DashboardFormPhotoInput label="Screenshot" state={newScreenshot} setState={setNewScreenshot} />
             <DashboardFormDatePicker label="Start date" date={startDate} setDate={setStartDate} />
             <DashboardFormDatePicker label="End date" date={endDate} setDate={setEndDate} end={true} />
-            <DashboardFormButton showDelete={true} deleteAction={handleDelete} saveAction={handleSubmit} />
+            <DashboardFormButton showDelete={showDelete} deleteAction={handleDelete} saveAction={handleSubmit} />
         </div>
     )
 }

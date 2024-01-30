@@ -83,11 +83,11 @@ export default async function Page() {
                 <>
                     <div className="h-auto w-full flex items-center justify-center flex-col">
                         { JSON.parse(data![0].jobs!).map((j: IJob) => {
-                            return <DashboardCard key={j.id} title="View your job" description="Make any changes you need to your saved job" heading={j.job_title} subHeading={j.employer} form={<DashboardJobForm id={j.id} job_title={j.job_title} employer={j.employer} job_details={j.description} start_date={j.start_date} end_date={j.end_date} deleteAction={deleteJob} saveAction={updateJobs} />} />
+                            return <DashboardCard key={j.id} title="View your job" description="Make any changes you need to your saved job" heading={j.job_title} subHeading={j.employer} form={<DashboardJobForm id={j.id} job_title={j.job_title} employer={j.employer} job_details={j.description} start_date={j.start_date} end_date={j.end_date} showDelete={true} deleteAction={deleteJob} saveAction={updateJobs} />} />
                         })}
                     </div>
                 </> }
-                <DashboardAddButton title="Add a new job" description="Enter details about the job you'd like to add" content="Add job" form={<DashboardJobForm job_title="" employer="" job_details="" start_date="" end_date="" saveAction={addJob} />} />
+                <DashboardAddButton title="Add a new job" description="Enter details about the job you'd like to add" content="Add job" form={<DashboardJobForm job_title="" employer="" job_details="" start_date="" end_date="" showDelete={false} saveAction={addJob} />} />
             </Suspense>
         </>
     )

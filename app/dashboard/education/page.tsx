@@ -83,11 +83,11 @@ export default async function Page() {
                 <>
                     <div className="h-auto w-full flex items-center justify-center flex-col">
                         { JSON.parse(data![0].education!).map((e: IEducation) => {
-                            return <DashboardCard key={e.id} title="View your education" description="Make any changes you need to your saved education" heading={e.course} subHeading={e.institution} form={<DashboardEducationForm id={e.id} institution={e.institution} course={e.course} grade={e.grade} start_date={e.start_date} end_date={e.end_date} deleteAction={deleteEducation} saveAction={updateEducation} />} />
+                            return <DashboardCard key={e.id} title="View your education" description="Make any changes you need to your saved education" heading={e.course} subHeading={e.institution} form={<DashboardEducationForm id={e.id} institution={e.institution} course={e.course} grade={e.grade} start_date={e.start_date} end_date={e.end_date} showDelete={true} deleteAction={deleteEducation} saveAction={updateEducation} />} />
                         })}
                     </div>
                 </> }
-                <DashboardAddButton title="Add some education" description="Enter details about the education you'd like to add" content="Add education" form={<DashboardEducationForm institution="" course="" grade="" start_date="" end_date="" saveAction={addEducation} />} />
+                <DashboardAddButton title="Add some education" description="Enter details about the education you'd like to add" content="Add education" form={<DashboardEducationForm institution="" course="" grade="" start_date="" end_date="" showDelete={false} saveAction={addEducation} />} />
             </Suspense>
         </>
     )

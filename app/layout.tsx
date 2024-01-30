@@ -4,6 +4,14 @@ import "./globals.css";
 import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
+import type { Viewport } from 'next'
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+}
 
 export const metadata: Metadata = {
   title: "Create Next App",

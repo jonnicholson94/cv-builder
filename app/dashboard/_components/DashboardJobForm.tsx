@@ -20,11 +20,12 @@ type Props = {
     job_details: string 
     start_date: string 
     end_date: string 
+    showDelete: boolean
     deleteAction?: (job_id: string) => void
     saveAction: (job: IJob) => void
 }
 
-export default function DashboardJobForm({ id = "", job_title, employer, job_details, start_date, end_date, deleteAction, saveAction }: Props) {
+export default function DashboardJobForm({ id = "", job_title, employer, job_details, start_date, end_date, showDelete, deleteAction, saveAction }: Props) {
 
     const router = useRouter()
 
@@ -63,7 +64,7 @@ export default function DashboardJobForm({ id = "", job_title, employer, job_det
             <DashboardFormTextarea label="Description" type="text" state={jobDetails} setState={setJobDetails} placeholder="Enter a job description" />
             <DashboardFormDatePicker label="Start date" date={startDate} setDate={setStartDate} />
             <DashboardFormDatePicker label="End date" date={endDate} setDate={setEndDate} end={true} />
-            <DashboardFormButton showDelete={true} deleteAction={handleDelete} saveAction={handleSubmit} />
+            <DashboardFormButton showDelete={showDelete} deleteAction={handleDelete} saveAction={handleSubmit} />
         </div>
     )
 }

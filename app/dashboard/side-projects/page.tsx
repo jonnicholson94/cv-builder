@@ -81,11 +81,11 @@ export default async function Page() {
                 <>
                     <div className="h-auto w-full flex items-center justify-center flex-col">
                         { JSON.parse(data![0].side_projects!).map((p: ISideProject) => {
-                            return <DashboardCard key={p.id} title="View your project" description="Make changes to your saved project" heading={p.name} subHeading={p.link} form={<DashboardProjectForm name={p.name} link={p.link} skills={p.skills} description={p.description} screenshot={p.screenshot} start_date={p.start_date} end_date={p.end_date} deleteAction={deleteProject} saveAction={updateProjects} />} />
+                            return <DashboardCard key={p.id} title="View your project" description="Make changes to your saved project" heading={p.name} subHeading={p.link} form={<DashboardProjectForm name={p.name} link={p.link} skills={p.skills} description={p.description} screenshot={p.screenshot} start_date={p.start_date} end_date={p.end_date} showDelete={true} deleteAction={deleteProject} saveAction={updateProjects} />} />
                         })}
                     </div>
                 </> }
-                <DashboardAddButton title="Add a project" description="Enter details about the project you'd like to add" content="Add project" form={<DashboardProjectForm name="" link="" skills={[]} description="" screenshot={null} start_date="" end_date="" saveAction={addSideProject} />} />
+                <DashboardAddButton title="Add a project" description="Enter details about the project you'd like to add" content="Add project" form={<DashboardProjectForm name="" link="" skills={[]} description="" screenshot={null} start_date="" end_date="" showDelete={false} saveAction={addSideProject} />} />
             </Suspense>
         </>
     )
