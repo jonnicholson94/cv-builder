@@ -47,6 +47,24 @@ export async function signIn(formData: FormData): Promise<string> {
 
 }
 
+export async function passwordReset(formData: FormData): Promise<string> {
+
+    const cookieStore = cookies()
+    const supabase = createClient(cookieStore)
+
+    const email = formData.get("email") as string 
+
+    const { error } = await supabase.auth.resetPasswordForEmail(email)
+
+    if (error) {
+        console.log(error.message)
+        return error.message
+    }
+
+    return "Successfully sent you a reset email"
+
+}
+
 export async function updateName(id: string, value: string): Promise<IApiResponse<string>> {
 
     const cookieStore = cookies()

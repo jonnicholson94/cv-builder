@@ -15,6 +15,12 @@ import DashboardJobForm from "../_components/DashboardJobForm"
 import DashboardCard from "../_components/DashboardCard"
 import EmptyDashboard from "../_components/EmptyDashboard"
 
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: 'Your job history | CV builder',
+  }
+
 export default async function Page() {
 
     const cookieStore = cookies()

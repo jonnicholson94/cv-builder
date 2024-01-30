@@ -14,6 +14,12 @@ import DashboardPhotoInput from "../_components/DashboardPhotoInput";
 import Loading from "./loading";
 import EmptyDashboard from "../_components/EmptyDashboard";
 
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: 'Your details | CV builder',
+  }
+
 export default async function Page() {
 
     const cookieStore = cookies()

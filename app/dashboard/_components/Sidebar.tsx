@@ -14,10 +14,17 @@ export default function Sidebar() {
 
     return (
         <div className="min-h-screen w-[300px] xs:hidden lg:flex border-r border-border items-center justify-start flex-col p-[20px]">
-            <div className="h-auto w-full flex items-center justify-start">
-                <Link href="/">
-                    <img className="h-[20px] w-[20px]" src="/square-logo-white.svg" alt="The primary icon, used to navigate home" />
-                </Link>
+            <div className="h-auto w-full flex items-center justify-center">
+                <div className="h-auto flex-grow flex items-center justify-start">
+                    <Link href="/">
+                        <img className="h-[20px] w-[20px]" src="/square-logo-white.svg" alt="The primary icon, used to navigate home" />
+                    </Link>
+                </div>
+                <div className="h-auto flex-grow flex items-center justify-end">
+                    <Link href="/account">
+                        <img className="h-[20px] w-[20px]" src="/assets/profile.svg" alt="A profile icon to indicate the user can go to their profile" />
+                    </Link>
+                </div>
             </div>
             <Link href="/cv" className="h-auto w-full flex items-center justify-center border-border bg-altBg mt-[30px] px-[20px] rounded-md">
                 <div className="h-auto flex-grow flex items-start justify-center flex-col my-[10px]">

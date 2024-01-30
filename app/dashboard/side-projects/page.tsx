@@ -15,6 +15,12 @@ import DashboardProjectForm from "../_components/DashboardProjectForm"
 import DashboardCard from "../_components/DashboardCard"
 import EmptyDashboard from "../_components/EmptyDashboard"
 
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: 'Your side projects | CV builder',
+  }
+
 export default async function Page() {
 
     const cookieStore = cookies()

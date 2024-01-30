@@ -12,6 +12,12 @@ import Loading from "./loading";
 import DashboardTextarea from "../_components/DashboardTextarea";
 import EmptyDashboard from "../_components/EmptyDashboard";
 
+import type { Metadata } from 'next'
+ 
+export const metadata: Metadata = {
+  title: 'About you | CV builder',
+}
+
 export default async function Page() {
 
     const cookieStore = cookies()

@@ -2,7 +2,7 @@ import Link from "next/link"
 
 type Props = {
     content: string 
-    link: "/auth/register" | "/auth/sign-in"
+    link: "/auth/register" | "/auth/sign-in" | "/auth/forgot-password"
 }
 
 export default function AuthLink({ content, link }: Props) {

@@ -15,7 +15,11 @@ import DashboardEducationForm from "../_components/DashboardEducationForm"
 import DashboardCard from "../_components/DashboardCard"
 import EmptyDashboard from "../_components/EmptyDashboard"
 
-export const revalidate = 300
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: 'Your education | CV builder',
+  }
 
 export default async function Page() {
 

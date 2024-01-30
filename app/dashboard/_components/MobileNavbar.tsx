@@ -20,7 +20,19 @@ export default function MobileNavbar() {
                             <img src="/assets/hamburger.svg" alt="A hamburger icon to indicate the mobile menu can be opened" />
                         </div>
                     </NavigationMenu.Trigger>
-                    <NavigationMenu.Content className="h-auto w-[300px] absolute top-[0px] flex items-center justify-center flex-col bg-primaryBg rounded-md border border-border p-[20px]">
+                    <NavigationMenu.Content className="h-auto w-[300px] absolute top-[0px] flex items-center justify-center flex-col bg-primaryBg rounded-md border border-border p-[20px] z-20">
+                        <div className="h-auto w-full flex items-center justify-center mb-[30px]">
+                            <div className="h-auto flex-grow flex items-center justify-start">
+                                <Link href="/">
+                                    <img className="h-[20px] w-[20px]" src="/square-logo-white.svg" alt="The primary icon, used to navigate home" />
+                                </Link>
+                            </div>
+                            <div className="h-auto flex-grow flex items-center justify-end">
+                                <Link href="/account">
+                                    <img className="h-[20px] w-[20px]" src="/assets/profile.svg" alt="A profile icon to indicate the user can go to their profile" />
+                                </Link>
+                            </div>
+                        </div>
                         <Link href="/cv" className="h-auto w-full flex items-center justify-center border-border bg-altBg px-[20px] rounded-md">
                             <div className="h-auto flex-grow flex items-start justify-center flex-col my-[10px]">
                                 <h2 className="h-auto w-full text-text text-[14px] font-bold">View your CV</h2>

@@ -10,7 +10,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <div className="h-[60px] w-full xs:flex lg:hidden items-center justify-start px-[15px]">
                     <MobileNavbar />
                 </div>
-                <div className="h-auto xs:w-[95%] md:w-[500px]">
+                <div className="h-auto xs:w-[90%] md:w-[500px]">
                     { children }
                 </div>
             </div>

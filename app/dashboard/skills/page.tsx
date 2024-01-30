@@ -7,6 +7,12 @@ import DashboardHeader from "../_components/DashboardHeader"
 import DashboardSkillsList from "../_components/DashboardSkillsList"
 import EmptyDashboard from "../_components/EmptyDashboard"
 
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: 'Your skills | CV builder',
+  }
+
 export default async function Page() {
 
     const cookieStore = cookies()

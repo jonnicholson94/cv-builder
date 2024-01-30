@@ -1,5 +1,5 @@
 
-import { register } from "@/app/actions";
+import { passwordReset } from "@/app/actions";
 
 import AuthButton from "../_components/AuthButton";
 import AuthForm from "../_components/AuthForm";
@@ -10,17 +10,16 @@ import AuthLink from "../_components/AuthLink";
 import type { Metadata } from 'next'
  
 export const metadata: Metadata = {
-  title: 'Sign up for an account | CV builder',
+  title: 'Request a password reset | CV builder',
 }
 
 export default function Page() {
     return (
-        <AuthForm action={register}>
-            <AuthTitle content="Register for an account" />
+        <AuthForm action={passwordReset}>
+            <AuthTitle content="Request a password reset" />
             <AuthInput placeholder="Enter your email" type="email" />
-            <AuthInput placeholder="Enter your password" type="password" />
             <AuthButton />
-            <AuthLink link="/auth/sign-in" content="Already got an account?" />
+            <AuthLink link="/auth/sign-in" content="Back to sign in" />
         </AuthForm>
     )
 }
