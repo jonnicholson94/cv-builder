@@ -12,7 +12,7 @@ import { revalidatePath } from "next/cache"
 export async function register(formData: FormData): Promise<string> {
 
     const cookieStore = cookies()
-const supabase = createClient(cookieStore)
+    const supabase = createClient(cookieStore)
     
     const email = formData.get("email") as string 
     const password = formData.get("password") as string
@@ -112,7 +112,7 @@ export async function updateEmail(id: string, value: string): Promise<IApiRespon
     const cookieStore = cookies()
     const supabase = createClient(cookieStore)
 
-    const { data, error } = await supabase.from("cv").update({ "email": value }).eq("id", id)
+    const { data, error } = await supabase.from("cv").update({ "email_address": value }).eq("id", id)
 
     if (error) {
         return {

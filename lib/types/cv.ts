@@ -13,7 +13,7 @@ export interface ICv {
     education: string | null 
     side_projects: string | null
     about: string 
-    skills: ISkill[]
+    skills: string | null
 }
 
 export interface IProfilePicture {
@@ -63,3 +63,5 @@ export interface ISkill {
 }
 
 export type InputTypes = "name" | "phone" | "email" | "twitter" | "linkedin" | "github" | "text"
+
+export type Templates = "Basic" | "Bright" | "Minimal" | "Modern"
