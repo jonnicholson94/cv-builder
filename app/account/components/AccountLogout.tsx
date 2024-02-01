@@ -9,9 +9,11 @@ export default function AccountLogout() {
     const supabase = createClient()
     const router = useRouter()
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
+
+        console.log("Just testing logout gets called...")
         
-        supabase.auth.signOut()
+        await supabase.auth.signOut()
 
         router.push("/auth/sign-in")
         

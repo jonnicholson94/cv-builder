@@ -12,4 +12,4 @@ export default function AuthInput({ placeholder, type }: Props) {
             type={type}
             name={type} />
     )
-}``
+}
