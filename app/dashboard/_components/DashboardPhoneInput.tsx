@@ -1,7 +1,7 @@
 
 "use client"
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { toast } from "sonner";
 
 import { InputTypes } from "@/lib/types/cv";
@@ -23,6 +23,8 @@ export default function DashboardPhoneInput({ id, value, action}: Props) {
     const [focus, setFocus] = useState(false)
     const [inputError, setInputError] = useState("")
 
+    const inputRef = useRef<HTMLInputElement>(null)
+
     const handleBlur = async () => {
         setFocus(false)
 
@@ -43,6 +45,14 @@ export default function DashboardPhoneInput({ id, value, action}: Props) {
         }
     }
 
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            if (inputRef) {
+                inputRef?.current?.blur()
+            }
+        }
+    }
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
         setInputError(() => handleValidation(e.target.value, "phone"))
@@ -58,7 +68,7 @@ export default function DashboardPhoneInput({ id, value, action}: Props) {
                 <div className="h-full px-[15px] border-r border-border flex items-center justify-center">
                     <p className="text-altText text-[12px]">+44</p>
                 </div>
-                <input className="h-full flex-grow bg-altBg outline-none text-[14px] text-text placeholder:text-placeholder rounded-sm px-[15px]" id="phone_number" type="text" name="phone" value={state} onChange={(e) => handleChange(e)} placeholder="Enter your phone number" onFocus={() => setFocus(true)} onBlur={handleBlur} />
+                <input ref={inputRef} className="h-full flex-grow bg-altBg outline-none text-[14px] text-text placeholder:text-placeholder rounded-sm px-[15px]" id="phone_number" type="text" name="phone" value={state} onChange={(e) => handleChange(e)} placeholder="Enter your phone number" onFocus={() => setFocus(true)} onBlur={handleBlur} onKeyDown={handleKeyDown} />
             </div>
             { inputError && <DashboardInputError error={inputError} />}
         </>

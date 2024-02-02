@@ -1,7 +1,7 @@
 
 "use client"
 
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { toast } from "sonner"
 
 import { InputTypes } from "@/lib/types/cv"
@@ -26,6 +26,8 @@ export default function DashboardTextInput({ id, value, type, name, label, place
 
     const [state, setState] = useState(value)
     const [inputError, setInputError] = useState("")
+
+    const inputRef = useRef<HTMLInputElement>(null)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
@@ -54,10 +56,19 @@ export default function DashboardTextInput({ id, value, type, name, label, place
         
     }
 
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            if (inputRef) {
+                inputRef?.current?.blur()
+            }
+        }
+    }
+
     return (
         <>
             <DashboardLabel label={label} name={name} />
             <input
+                ref={inputRef}
                 className={`h-[40px] w-full bg-altBg border ${inputError ? "border-error mb-[10px]" : "border-border"} rounded-sm px-[15px] mt-[5px] text-[14px] text-text placeholder:text-placeholder mb-[20px] focus:border-active focus:outline-none`}
                 type={type}
                 id={name}
@@ -66,6 +77,7 @@ export default function DashboardTextInput({ id, value, type, name, label, place
                 value={state}
                 onChange={(e) => handleChange(e)}
                 onBlur={handleBlur}
+                onKeyDown={handleKeyDown}
             />
             { inputError && <DashboardInputError error={inputError} />}
         </>

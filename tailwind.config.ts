@@ -35,6 +35,29 @@ const config: Config = {
         "sm": "5px",
         "md": "10px",
         "rnd": "50%"
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity : '0', transform: 'translateY(-15px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' }
+        },
+        fadeUp: {
+          '0%': { opacity: '0', transform: 'translateY(30px' },
+          '100%': { opacity: '1', transform: "translateY(0)" }
+        },
+        borderAnimation: {
+          '0%': { top: '-5px', bottom: 'calc(100% - 5px)', left: '-5px', right: 'calc(100% - 5px)' },
+          '25%': { top: '-5px', bottom: 'calc(100% - 5px)', left: 'calc(100% - 5px)', right: '-5px'},
+          '50%': { top: 'calc(100% - 5px)', bottom: '-5px', left: 'calc(100% - 5px)', right: '-5px' },
+          '75%': { top: 'calc(100% - 5px)', bottom: '-5px', left: '-5px', right: 'calc(100% - 5px)'},
+          '100%': { top: '-5px', left: '-5px' }
+        }
+      },
+      animation: {
+        "fadeInFast": 'fadeIn 0.5s ease-in',
+        "fadeInMedium": 'fadeIn 0.6s ease-in',
+        "fadeInSlow": 'fadeIn 0.7s ease-in',
+        'borderAnimation': "borderAnimation 40s ease-in-out infinite"
       }
     },
   },

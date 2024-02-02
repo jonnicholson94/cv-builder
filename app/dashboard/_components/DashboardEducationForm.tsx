@@ -36,6 +36,12 @@ export default function DashboardEducationForm({ id = "", institution, course, g
     const [endDate, setEndDate] = useState(end_date)
 
     const handleSubmit = () => {
+
+        if (newInstitution === "" || newCourse === "" || newGrade === "" || startDate === "" || endDate === "") {
+            toast.error("Make sure to fill in all the fields before saving")
+            return
+        }
+
         const newEducation: IEducation = {
             id: id === "" ? uuid() : id,
             institution: newInstitution,

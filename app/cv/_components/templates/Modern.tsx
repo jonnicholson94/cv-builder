@@ -10,7 +10,7 @@ type Props = {
 const Modern = forwardRef<HTMLDivElement, Props>(({ cv }: Props, ref) => {
 
     return (
-        <div ref={ref} id="Modern" className="h-auto w-full bg-[#151621] flex items-center justify-center flex-col p-[30px]">
+        <div ref={ref} id="Modern" className="h-auto w-full bg-[#151621] flex items-center justify-center flex-col p-[30px]" data-testid="modern-template">
             <div className="h-auto w-full flex items-center justify-start">
                 { cv.profile_picture && <img className="h-[100px] w-[100px] rounded-rnd mr-[20px]" src={JSON.parse(cv.profile_picture).base64} alt="The user's profile picture" /> }
                 <h1 className="text-[36px] text-text font-bold">{cv.name}</h1>

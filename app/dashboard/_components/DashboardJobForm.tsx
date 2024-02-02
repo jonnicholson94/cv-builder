@@ -36,6 +36,12 @@ export default function DashboardJobForm({ id = "", job_title, employer, job_det
     const [endDate, setEndDate] = useState(end_date)
 
     const handleSubmit = () => {
+
+        if (jobTitle === "" || jobEmployer === "" || jobDetails === "" || startDate === "" || endDate === "") {
+            toast.error("Make sure to fill in all of the fields before saving your job")
+            return
+        }
+
         const newJob: IJob = {
             id: id === "" ? uuid() : id,
             job_title: jobTitle,

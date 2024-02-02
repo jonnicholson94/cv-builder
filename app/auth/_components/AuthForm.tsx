@@ -1,7 +1,8 @@
+import { toast } from "sonner"
 
 type Props = {
     children: React.ReactNode
-    action: (formData: FormData) => Promise<string>
+    action: (formData: FormData) => Promise<string | void>
 }
 
 export default function AuthForm({ children, action }: Props) {

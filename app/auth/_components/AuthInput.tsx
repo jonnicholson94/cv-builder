@@ -10,6 +10,7 @@ export default function AuthInput({ placeholder, type }: Props) {
             className="h-[40px] w-full bg-altBg border border-border rounded-sm px-[15px] text-[14px] placeholder:text-placeholder text-text outline-outline mb-[15px]" 
             placeholder={placeholder}
             type={type}
-            name={type} />
+            name={type}
+            autoComplete="on" />
     )
 }

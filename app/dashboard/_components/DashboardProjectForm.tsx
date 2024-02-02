@@ -41,6 +41,12 @@ export default function DashboardProjectForm({ id = "", name, link, skills, desc
     const [endDate, setEndDate] = useState(end_date)
 
     const handleSubmit = () => {
+
+        if (newName === "" || newLink === "" || newDescription === "" || startDate === "" || endDate === "") {
+            toast.error("Make sure to fill in all of the fields before saving your project")
+            return
+        }
+
         const newProject: ISideProject = {
             id: uuid(),
             name: newName, 

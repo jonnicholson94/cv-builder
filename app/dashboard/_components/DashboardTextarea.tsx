@@ -1,7 +1,7 @@
 
 "use client"
 
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { toast } from "sonner"
 
 import { InputTypes } from "@/lib/types/cv"
@@ -25,6 +25,8 @@ export default function DashboardTextarea({ id, value, name, label, placeholder,
 
     const [state, setState] = useState(value)
     const [inputError, setInputError] = useState("")
+
+    const inputRef = useRef<HTMLTextAreaElement>(null)
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 
@@ -53,10 +55,19 @@ export default function DashboardTextarea({ id, value, name, label, placeholder,
         
     }
 
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key === "Enter") {
+            if (inputRef) {
+                inputRef?.current?.blur()
+            }
+        }
+    }
+
     return (
         <>
             <DashboardLabel label={label} name={name} />
             <textarea
+                ref={inputRef}
                 className={`h-[120px] w-full bg-altBg border ${inputError ? "border-error mb-[10px]" : "border-border"} rounded-sm p-[15px] mt-[5px] text-[14px] text-text placeholder:text-placeholder mb-[20px] focus:border-active focus:outline-none`}
                 id={name}
                 name={name}
@@ -64,6 +75,7 @@ export default function DashboardTextarea({ id, value, name, label, placeholder,
                 value={state}
                 onChange={(e) => handleChange(e)}
                 onBlur={handleBlur}
+                onKeyDown={handleKeyDown}
             />
             { inputError && <DashboardInputError error={inputError} />}
         </>

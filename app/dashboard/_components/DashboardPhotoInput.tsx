@@ -45,6 +45,18 @@ export default function DashboardPhotoInput({ id, label, name, picture }: Props)
         
     }
 
+    const handleDelete = async () => {
+        setState({ "base64": "", "title": "" })
+        const { data, error } = await updateProfilePicture(id, JSON.stringify({ title: "", base64: "" }))
+
+        if (data) {
+            toast.success("Successfully removed your profile picture")
+        } else {
+            toast.error(error)
+        }
+
+    }
+
     return (
         <>
             <DashboardLabel label={label} name={name} />
@@ -53,8 +65,9 @@ export default function DashboardPhotoInput({ id, label, name, picture }: Props)
                     { state.base64 && <img className="h-[40px] w-[40px] rounded-rnd" src={state.base64} alt="The user's profile picture" /> }
                 </div>
                 <p className="h-auto flex-grow text-altText text-[12px]">{state.title ? state.title : "No photo selected"}</p>
-                <label className="h-[35px] rounded-md bg-altBg border border-border px-[15px] flex items-center justify-center text-text text-[12px] font-bold" htmlFor={name}>Upload</label>
+                <label className="h-[35px] rounded-sm bg-altBg border border-border px-[15px] flex items-center justify-center text-text text-[12px] font-bold" htmlFor={name}>Upload</label>
                 <input className="hidden" type="file" id={name} accept="image/png, image/jpg" onChange={handleUpload} />
+                { state.base64 && <button className="h-[35px] rounded-sm border border-border ml-[10px] bg-error px-[15px] flex items-center justify-center text-text font-bold text-[12px]" onClick={handleDelete}>Clear</button> }
             </div>
         </>
     )

@@ -11,7 +11,7 @@ type Props = {
 const Basic = forwardRef<HTMLDivElement, Props>(({ cv }: Props, ref) => {
 
     return (
-        <div ref={ref} id="Basic" className="h-auto w-full bg-[#fff] flex items-center justify-center flex-col px-[5%] py-[30px] rounded-sm">
+        <div ref={ref} id="Basic" className="h-auto w-full bg-[#fff] flex items-center justify-center flex-col px-[5%] py-[30px] rounded-sm" data-testid="basic-template">
 
             <h1 className="h-auto w-full text-[36px] font-bold">{cv.name}</h1>
             <p className="h-auto w-full text-[20px] mt-[5px]">{cv.email_address} | {cv.phone_number}</p>

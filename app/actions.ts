@@ -61,7 +61,7 @@ export async function passwordReset(formData: FormData): Promise<string> {
         return error.message
     }
 
-    return "Successfully sent you a reset email"
+    redirect("/auth/sign-in")
 
 }
 

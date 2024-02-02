@@ -14,6 +14,7 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
+
     return (
         <AuthForm action={passwordReset}>
             <AuthTitle content="Request a password reset" />
