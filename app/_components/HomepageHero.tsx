@@ -8,9 +8,8 @@ export default function HomepageHero() {
             <Link className="h-[50px] px-[30px] font-bold text-text bg-cta rounded-sm flex items-center justify-center mt-[40px] animate-fadeInSlow" href="/auth/register">
                 Get started
             </Link>
-            <div className="h-auto w-[90%] border border-[2px] border-active rounded-sm mt-[100px] mb-[100px] animate-fadeUpSlow relative">
+            <div className="h-auto w-[90%] border border-[2px] border-active rounded-sm mt-[100px] mb-[100px] animate-fadeUp relative">
                 <img className="rounded-md" src="/homepage-hero.png" alt="A picture of the main CV builder dashboard" />
-                <span className="h-[10px] w-[10px] rounded-md animate-borderAnimation bg-active absolute"></span>
             </div>
         </section>
     )
